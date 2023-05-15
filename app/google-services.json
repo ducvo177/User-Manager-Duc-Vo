@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "969405975064",
+    "firebase_url": "https://user-manager-ducvo-default-rtdb.firebaseio.com",
+    "project_id": "user-manager-ducvo",
+    "storage_bucket": "user-manager-ducvo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969405975064:android:1d2a53c30185093d43d16d",
+        "android_client_info": {
+          "package_name": "com.example.notesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969405975064-buddoaacamrsp74ipqo4amo6tepijbih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC80nY_oWfF_Syvy776YYY5S660ZCGw3Hg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969405975064-buddoaacamrsp74ipqo4amo6tepijbih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
