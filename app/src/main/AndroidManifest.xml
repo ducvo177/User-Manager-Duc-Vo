@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NotesApp">
         <activity
-            android:name=".detail.NoteDetails"
+            android:name=".detail.UserDetails"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <meta-data
@@ -19,7 +19,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activities.EditNoteActivity"
+            android:name=".activities.EditUser"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <meta-data
@@ -27,7 +27,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activities.CreateNote"
+            android:name=".activities.CreateUser"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <meta-data
@@ -35,7 +35,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activities.NotesActivity"
+            android:name=".activities.UsersActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

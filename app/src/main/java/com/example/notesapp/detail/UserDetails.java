@@ -12,20 +12,20 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.notesapp.R;
-import com.example.notesapp.activities.EditNoteActivity;
+import com.example.notesapp.activities.EditUser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class NoteDetails extends AppCompatActivity {
+public class UserDetails extends AppCompatActivity {
 
-    private TextView mtitleofnotedetail, mcontentofnotedetail;
+    private TextView mnameofnotedetail, memailofuserdetail;
     FloatingActionButton mgotoeditnote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notedetails);
-        mtitleofnotedetail = findViewById(R.id.titleofnotedetail);
-        mcontentofnotedetail = findViewById(R.id.contentofnotedetail);
+        setContentView(R.layout.activity_userdetails);
+        mnameofnotedetail = findViewById(R.id.titleofnotedetail);
+        memailofuserdetail = findViewById(R.id.contentofnotedetail);
         mgotoeditnote = findViewById(R.id.gotoeditnote);
         Toolbar toolbar = findViewById(R.id.toolbarofnotedetail);
         setSupportActionBar(toolbar);
@@ -36,7 +36,7 @@ public class NoteDetails extends AppCompatActivity {
         mgotoeditnote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), EditNoteActivity.class);
+                Intent intent = new Intent(v.getContext(), EditUser.class);
                 intent.putExtra("title", data.getStringExtra("title"));
                 intent.putExtra("content", data.getStringExtra("content"));
                 intent.putExtra("noteId", data.getStringExtra("noteId"));
@@ -44,9 +44,9 @@ public class NoteDetails extends AppCompatActivity {
             }
         });
 
-        mcontentofnotedetail.setText(data.getStringExtra("content"));
-        mtitleofnotedetail.setText(data.getStringExtra("title"));
-        mtitleofnotedetail.setOnClickListener(new View.OnClickListener() {
+        memailofuserdetail.setText(data.getStringExtra("content"));
+        mnameofnotedetail.setText(data.getStringExtra("title"));
+        mnameofnotedetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();

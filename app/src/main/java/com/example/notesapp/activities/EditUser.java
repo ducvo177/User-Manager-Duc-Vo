@@ -24,11 +24,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditNoteActivity extends AppCompatActivity {
+public class EditUser extends AppCompatActivity {
 
     Intent data;
-    EditText medittitleofnote, meditcontentofnote;
-    FloatingActionButton msaveeditnote;
+    EditText meditnameofuser, meditemailofuser;
+    FloatingActionButton msaveedituser;
 
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
@@ -37,40 +37,40 @@ public class EditNoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editnoteactivity);
-        medittitleofnote = findViewById(R.id.edittitleofnote);
-        meditcontentofnote = findViewById(R.id.editcontentofnote);
-        msaveeditnote = findViewById(R.id.saveeditnote);
+        setContentView(R.layout.activity_edituseractivity);
+        meditnameofuser = findViewById(R.id.editnameofuser);
+        meditemailofuser = findViewById(R.id.editemailofuser);
+        msaveedituser = findViewById(R.id.saveedituser);
 
         data = getIntent();
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        Toolbar toolbar = findViewById(R.id.toolbarofeditnote);
+        Toolbar toolbar = findViewById(R.id.toolbarofedituser);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        msaveeditnote.setOnClickListener(new View.OnClickListener() {
+        msaveedituser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String newtitle = medittitleofnote.getText().toString();
-                String newcontent = meditcontentofnote.getText().toString();
+                String newname = meditnameofuser.getText().toString();
+                String newemail = meditemailofuser.getText().toString();
 
-                if (newtitle.isEmpty() || newcontent.isEmpty()) {
+                if (newname.isEmpty() || newemail.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Something is empty", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(data.getStringExtra("noteId"));
-                    Map<String, Object> note = new HashMap<>();
-                    note.put("title", newtitle);
-                    note.put("content", newcontent);
-                    documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    DocumentReference documentReference = firebaseFirestore.collection("users").document(firebaseUser.getUid()).collection("myUsers").document(data.getStringExtra("noteId"));
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("name", newname);
+                    user.put("email", newemail);
+                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(getApplicationContext(), "Note is updated", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(EditNoteActivity.this, NotesActivity.class));
+                            Toast.makeText(getApplicationContext(), "User is updated", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(EditUser.this, UsersActivity.class));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -83,10 +83,10 @@ public class EditNoteActivity extends AppCompatActivity {
             }
         });
 
-        String notetitle = data.getStringExtra("title");
-        String notecontent = data.getStringExtra("content");
-        meditcontentofnote.setText(notecontent);
-        medittitleofnote.setText(notetitle);
+        String username = data.getStringExtra("name");
+        String useremail = data.getStringExtra("email");
+        meditemailofuser.setText(useremail);
+        meditnameofuser.setText(username);
     }
 
     @Override

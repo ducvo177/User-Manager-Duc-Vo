@@ -2,26 +2,35 @@ package com.example.notesapp.models;
 
 public class FirebaseModel {
 
-    private String title;
-    private String content;
+    private String name;
+    private String email;
     private String time;
 
     public FirebaseModel(){
 
     }
 
-    public FirebaseModel(String title, String time, String content){
-        this.title = title;
+    public FirebaseModel(String title, String time, String email){
+        this.name = title;
         this.time = time;
-        this.content = content;
+        this.email = email;
     }
 
-    public String getTitle() {
-        return title;
+
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getTime() {
@@ -32,13 +41,7 @@ public class FirebaseModel {
         this.time = time;
     }
 
-    public String getContent() {
-        return content;
-    }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
 }
 
 

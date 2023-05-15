@@ -21,7 +21,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.notesapp.detail.NoteDetails;
+import com.example.notesapp.detail.UserDetails;
 import com.example.notesapp.R;
 import com.example.notesapp.models.FirebaseModel;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class NotesActivity extends AppCompatActivity {
+public class UsersActivity extends AppCompatActivity {
 
     FloatingActionButton mcreatenotefab;
     private FirebaseAuth firebaseAuth;
@@ -55,7 +55,7 @@ public class NotesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notesactivity);
+        setContentView(R.layout.activity_usersactivity);
 
         mcreatenotefab = findViewById(R.id.createnotefab);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -69,12 +69,12 @@ public class NotesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(NotesActivity.this, CreateNote.class));
+                startActivity(new Intent(UsersActivity.this, CreateUser.class));
 
             }
         });
 
-        Query query = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").orderBy("title", Query.Direction.ASCENDING);
+        Query query = firebaseFirestore.collection("users").document(firebaseUser.getUid()).collection("myUsers").orderBy("name", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<FirebaseModel> allusernotes = new FirestoreRecyclerOptions.Builder<FirebaseModel>().setQuery(query, FirebaseModel.class).build();
 
@@ -88,8 +88,8 @@ public class NotesActivity extends AppCompatActivity {
 
                 ImageView popupbutton = holder.itemView.findViewById(R.id.menupopbutton);
 
-                holder.notetitle.setText(model.getTitle());
-                holder.notecontent.setText(model.getContent());
+                holder.username.setText(model.getName());
+                holder.useremail.setText(model.getEmail());
 
                 String docId = noteAdapter.getSnapshots().getSnapshot(position).getId();
 
@@ -97,9 +97,9 @@ public class NotesActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        Intent intent = new Intent(v.getContext(), NoteDetails.class);
-                        intent.putExtra("title", model.getTitle());
-                        intent.putExtra("content", model.getContent());
+                        Intent intent = new Intent(v.getContext(), UserDetails.class);
+                        intent.putExtra("name", model.getName());
+                        intent.putExtra("email", model.getEmail());
                         intent.putExtra("noteId", docId);
 
                         v.getContext().startActivity(intent);
@@ -117,9 +117,9 @@ public class NotesActivity extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(@NonNull MenuItem item) {
 
-                                Intent intent = new Intent(v.getContext(), EditNoteActivity.class);
-                                intent.putExtra("title", model.getTitle());
-                                intent.putExtra("content", model.getContent());
+                                Intent intent = new Intent(v.getContext(), EditUser.class);
+                                intent.putExtra("name", model.getName());
+                                intent.putExtra("email", model.getEmail());
                                 intent.putExtra("noteId", docId);
                                 v.getContext().startActivity(intent);
                                 return false;
@@ -129,11 +129,11 @@ public class NotesActivity extends AppCompatActivity {
                         popupMenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(@NonNull MenuItem item) {
-                                DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
+                                DocumentReference documentReference = firebaseFirestore.collection("users").document(firebaseUser.getUid()).collection("myUsers").document(docId);
                                 documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(v.getContext(), "This note is deleted", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(v.getContext(), "This user is deleted", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -180,14 +180,14 @@ public class NotesActivity extends AppCompatActivity {
     }
 
     public class NoteViewHolder extends RecyclerView.ViewHolder {
-        private TextView notetitle;
-        private TextView notecontent;
+        private TextView username;
+        private TextView useremail;
         LinearLayout mnote;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-            notetitle = itemView.findViewById(R.id.notetitle);
-            notecontent = itemView.findViewById(R.id.notecontent);
+            username = itemView.findViewById(R.id.notetitle);
+            useremail = itemView.findViewById(R.id.notecontent);
             mnote = itemView.findViewById(R.id.note);
 
         }
@@ -207,7 +207,7 @@ public class NotesActivity extends AppCompatActivity {
             case R.id.logout:
                 firebaseAuth.signOut();
                 finish();
-                startActivity(new Intent(NotesActivity.this, MainActivity.class));
+                startActivity(new Intent(UsersActivity.this, MainActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

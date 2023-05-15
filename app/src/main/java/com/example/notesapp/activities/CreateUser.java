@@ -24,27 +24,27 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateNote extends AppCompatActivity {
+public class CreateUser extends AppCompatActivity {
 
-    EditText mcreatetitleofnote, mcreatecontentofnote;
-    FloatingActionButton msavenote;
+    EditText mcreatenameofuser, mcreateemailofuser;
+    FloatingActionButton msaveuser;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseFirestore firebaseFirestore;
 
-    ProgressBar mprogressbarofcreatenote;
+    ProgressBar mprogressbarofcreateuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_createnote);
+        setContentView(R.layout.activity_createuser);
 
-        msavenote = findViewById(R.id.savenote);
-        mcreatecontentofnote = findViewById(R.id.createcontentofnote);
-        mcreatetitleofnote = findViewById(R.id.createtitleofnote);
+        msaveuser = findViewById(R.id.saveuser);
+        mcreateemailofuser = findViewById(R.id.createemailofuser);
+        mcreatenameofuser = findViewById(R.id.createnameofuser);
 
-        mprogressbarofcreatenote = findViewById(R.id.progressbarofcreatenote);
-        Toolbar toolbar = findViewById(R.id.toolbarofcreatenote);
+        mprogressbarofcreateuser = findViewById(R.id.progressbarofcreateuser);
+        Toolbar toolbar = findViewById(R.id.toolbarofcreateuser);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -52,33 +52,33 @@ public class CreateNote extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        msavenote.setOnClickListener(new View.OnClickListener() {
+        msaveuser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = mcreatetitleofnote.getText().toString();
-                String content = mcreatecontentofnote.getText().toString();
-                if (title.isEmpty() || content.isEmpty()) {
+                String name = mcreatenameofuser.getText().toString();
+                String email = mcreateemailofuser.getText().toString();
+                if (name.isEmpty() || email.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Both field are require", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    mprogressbarofcreatenote.setVisibility(View.VISIBLE);
+                    mprogressbarofcreateuser.setVisibility(View.VISIBLE);
 
-                    DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document();
-                    Map<String, Object> note = new HashMap<>();
-                    note.put("title", title);
-                    note.put("content", content);
+                    DocumentReference documentReference = firebaseFirestore.collection("users").document(firebaseUser.getUid()).collection("myUsers").document();
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("name", name);
+                    user.put("email", email);
 
-                    documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(getApplicationContext(), "Note created successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(CreateNote.this, NotesActivity.class));
+                            Toast.makeText(getApplicationContext(), "User created successfully", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(CreateUser.this, UsersActivity.class));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "Failed to create note", Toast.LENGTH_SHORT).show();
-                            mprogressbarofcreatenote.setVisibility(View.INVISIBLE);
+                            Toast.makeText(getApplicationContext(), "Failed to create user", Toast.LENGTH_SHORT).show();
+                            mprogressbarofcreateuser.setVisibility(View.INVISIBLE);
                         }
                     });
 

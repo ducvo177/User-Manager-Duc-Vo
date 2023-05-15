@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (firebaseUser != null) {
             finish();
-            startActivity(new Intent(MainActivity.this, NotesActivity.class));
+            startActivity(new Intent(MainActivity.this, UsersActivity.class));
         }
 
         mgotosignup.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         if (firebaseUser.isEmailVerified() == true) {
             Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_SHORT).show();
             finish();
-            startActivity(new Intent(MainActivity.this, NotesActivity.class));
+            startActivity(new Intent(MainActivity.this, UsersActivity.class));
         } else {
             mprogressbarofmainactivity.setVisibility(View.INVISIBLE);
             Toast.makeText(getApplicationContext(), "Verify your mail first", Toast.LENGTH_SHORT).show();
