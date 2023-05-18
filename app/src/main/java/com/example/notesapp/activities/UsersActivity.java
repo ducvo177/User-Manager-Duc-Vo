@@ -35,9 +35,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class UsersActivity extends AppCompatActivity {
 
@@ -164,14 +161,14 @@ public class UsersActivity extends AppCompatActivity {
             @NonNull
             @Override
             public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notes_layout, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.users_layout, parent, false);
                 return new NoteViewHolder(view);
             }
         };
 
         mrecyclerview = findViewById(R.id.recyclerview);
         mrecyclerview.setHasFixedSize(true);
-        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mrecyclerview.setLayoutManager(staggeredGridLayoutManager);
         mrecyclerview.setAdapter(noteAdapter);
         noteAdapter.startListening();
@@ -225,21 +222,4 @@ public class UsersActivity extends AppCompatActivity {
             noteAdapter.stopListening();
         }
     }
-
-    private int getRandomColor() {
-        List<Integer> colorcode = new ArrayList<>();
-        colorcode.add(R.color.violet);
-        colorcode.add(R.color.indigo);
-        colorcode.add(R.color.blue);
-        colorcode.add(R.color.green);
-        colorcode.add(R.color.yellow);
-        colorcode.add(R.color.orange);
-        colorcode.add(R.color.red);
-
-        Random random = new Random();
-        int number = random.nextInt(colorcode.size());
-        return colorcode.get(number);
-
-    }
-
 }

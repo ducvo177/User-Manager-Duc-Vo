@@ -15,9 +15,6 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent">
-
-            <!-- Nội dung của Toolbar -->
-
         </androidx.appcompat.widget.Toolbar>
 
         <EditText
